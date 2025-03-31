@@ -1,0 +1,22 @@
+package com.example.racecatforum.Service;
+
+import com.example.racecatforum.Entity.Cat;
+import com.example.racecatforum.Framework.CatRepo;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+public class CatService {
+    private CatRepo catRepo;
+    private List<Cat> cats = new ArrayList<>();
+    public CatService(CatRepo catRepo) {
+        this.catRepo = catRepo;
+    }
+
+    public List<Cat> getAllCats() {
+        cats = catRepo.getAllCats();
+        return cats;
+    }
+}
