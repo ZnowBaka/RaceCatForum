@@ -1,5 +1,6 @@
 package com.example.racecatforum.Controller;
 
+import com.example.racecatforum.Entity.IncorrectPasswordException;
 import com.example.racecatforum.Entity.User;
 import com.example.racecatforum.Entity.UserAlreadyExitsException;
 import com.example.racecatforum.Framework.UserRepo;
@@ -38,7 +39,7 @@ public class FrontPageController {
 
     @GetMapping("/")
     public String home(Model model) {
-        model.addAttribute("cats", catService.getAllCats());
+       //model.addAttribute("cats", catService.getAllCats());
         return "redirect:/registerNewProfile";
     }
 
@@ -50,8 +51,8 @@ public class FrontPageController {
     }
 
     @PostMapping("/registerNewProfile")
-    public String postNewProfile(@ModelAttribute("newUser") User user, Model model) throws UserAlreadyExitsException {
-        if (userService.registerUser(user)) {
+    public String postNewProfile(@ModelAttribute("newUser") User user, Model model) {
+        if (!userService.registerUser(user)) {
             return "redirect:/loginPage";
         } else {
             model.addAttribute("error", "User already exists");
@@ -61,12 +62,17 @@ public class FrontPageController {
 
     @GetMapping("/loginPage")
     public String loginPage(Model model) {
+        model.addAttribute("user", new User());
         return "/loginPage";
     }
 
     @PostMapping("loginPage")
-    public String postLoginPage(Model model) {
-        return "redirect:/frontPage";
+    public String postLoginPage(@ModelAttribute("user") User user, Model model) throws IncorrectPasswordException {
+        if(userService.loginUser(user) != null) {
+            return "redirect:/frontPage";
+        }else {
+           return "redirect:/loginPage";
+        }
     }
 
 

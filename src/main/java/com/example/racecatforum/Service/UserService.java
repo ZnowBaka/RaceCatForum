@@ -21,12 +21,11 @@ public class UserService {
     // If the userName exist in database, the value from getUser() would NOT be null, therefore a user already exist.
     public boolean registerUser(User user) {
         try {
-            if (userRepo.doesUserNameExist(user.getUserName()) == false) return false;
-
+            if (userRepo.doesUserNameExist(user.getUserName()) == false)
             //hashPassword(user); // for future hashing in separate method
-
-            userRepo.createNewUser(user);
-
+                System.out.println("testing registerUser");
+                userRepo.createNewUser(user);
+            return false;
         } catch (UserAlreadyExitsException e) {
             System.out.println(e.getMessage());
         }
@@ -50,7 +49,7 @@ public class UserService {
 
 
     public User loginUser(User user) throws IncorrectPasswordException {
-        if ((user != null) && Objects.equals(user.getUserPass(), userRepo.getUserById(user.getUserId()).getUserPass())) {
+        if (userRepo.getUserByUsername(user) != null) {
             return user;
         } else {
             throw new IncorrectPasswordException("Incorrect password");

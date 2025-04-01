@@ -32,12 +32,16 @@ public class UserRepo {
 
     public User getUserByUsername(User user) throws UserDoesNotExistsException {
         String sql = "select * from users where user_name = ?";
-        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class), user.getUserName());
+        return jdbcTemplate.queryForObject(sql, User.class, user.getUserName());
     }
 
     public boolean doesUserNameExist(String username) throws UserDoesNotExistsException {
         String sql = "select * from users where user_name = ?";
-        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class), username) == null;
+        if(jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class), username) == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 
@@ -48,9 +52,10 @@ public class UserRepo {
      */
     public boolean createNewUser(User user) throws UserAlreadyExitsException {
         String sql = "INSERT INTO users (user_name, user_pass, user_email) VALUES (?, ?, ?)";
-        int affectedRows = jdbcTemplate.update(sql, user.getUserName(), user.getUserPass(), user.getUserPass());
+        int affectedRows = jdbcTemplate.update(sql, user.getUserName(), user.getUserPass(), user.getUserEmail());
 
         // AffectedRows should be 1 if the query was successful
+        System.out.println(affectedRows);
         return affectedRows == 1;
     }
 
