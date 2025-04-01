@@ -5,10 +5,11 @@ import com.example.racecatforum.Entity.User;
 import com.example.racecatforum.Entity.UserAlreadyExitsException;
 import com.example.racecatforum.Framework.UserRepo;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.Objects;
 
+@Service
 public class UserService {
     private final UserRepo userRepo;
 
@@ -16,29 +17,23 @@ public class UserService {
         this.userRepo = userRepo;
     }
 
+
+    // If the userName exist in database, the value from getUser() would NOT be null, therefore a user already exist.
     public boolean registerUser(User user) {
         try {
-            if (doesUserNameExist(user)) {
-                //hashPassword(user); // for future hashing in separate method
-                userRepo.registerUser(user);
-                return true;
-            }
+            if (userRepo.doesUserNameExist(user.getUserName()) == false) return false;
+
+            //hashPassword(user); // for future hashing in separate method
+
+            userRepo.createNewUser(user);
 
         } catch (UserAlreadyExitsException e) {
             System.out.println(e.getMessage());
         }
-        return false;
+        return true;
     }
 
-    // If the userName (which is Unique) already is in the database, the returned user from getUser() would NOT be null, therefore a user already exist.
-    // If the return value is null, then there was no user with that username in the database, therefore if result is == to null, we return true.
-    public boolean doesUserNameExist(User user) throws UserAlreadyExitsException {
-        if (userRepo.getUserByUsername(user.getUserName()) == null) {
-            return true;
-        } else {
-            throw new UserAlreadyExitsException("User with that username already exits");
-        }
-    }
+
 
 
     public void hashPassword(User user) {
@@ -46,10 +41,16 @@ public class UserService {
         user.setUserPass(hashed);
     }
 
+    public User getUserByUsername(String username) {
+        User user = new User();
+        user.setUserName(username);
+        user = userRepo.getUserByUsername(user);
+        return user;
+    }
 
-    public User loginUser(String username, String password) throws IncorrectPasswordException {
-        User user = userRepo.getUserByUsername(username);
-        if ((user != null) && Objects.equals(password, userRepo.getUserById(user.getUserId()).getUserPass())) {
+
+    public User loginUser(User user) throws IncorrectPasswordException {
+        if ((user != null) && Objects.equals(user.getUserPass(), userRepo.getUserById(user.getUserId()).getUserPass())) {
             return user;
         } else {
             throw new IncorrectPasswordException("Incorrect password");

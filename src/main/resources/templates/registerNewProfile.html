@@ -7,10 +7,12 @@
 <body>
 <h1 class="center">Login</h1>
 <div class="center">
-<form action="/submit" th:object="${user}" method="post">
-    Username: <input type="text" th:field=""><br>
-    Password: <input type="password" th:field="">
+<form action="#" th:action="@{/registerNewProfile}" th:object="${newUser}" method="post">
+    Username: <input type="text" th:field="*{userName}"><br>
+    Password: <input type="password" th:field="*{userPass}"><br>
+    Email: <input type="email" th:field="*{userEmail}"><br>
     <button type="submit">Register</button>
+    <div class="error" th:text="${error}"></div>
 </form>
 </div>
 <div style="float: right; margin: 60px">

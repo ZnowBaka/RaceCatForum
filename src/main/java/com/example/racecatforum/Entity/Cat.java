@@ -1,11 +1,11 @@
 package com.example.racecatforum.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Data
 public class Cat {
     private int catId;
@@ -15,4 +15,8 @@ public class Cat {
     private String catGender;
     private String catDescription;
     private String catImage;
+
+
 }
+
+

@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public class CatRepo {
-    private final JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     public CatRepo(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
