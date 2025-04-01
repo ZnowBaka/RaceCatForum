@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class Cat {
     private int catId;
-
     private String ownerName;
     private String catName;
     private int catAge;

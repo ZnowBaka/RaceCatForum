@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 public class CatService {
-    private CatRepo catRepo;
+    private final CatRepo catRepo;
     private List<Cat> cats = new ArrayList<>();
     public CatService(CatRepo catRepo) {
         this.catRepo = catRepo;
@@ -18,5 +18,13 @@ public class CatService {
     public List<Cat> getAllCats() {
         cats = catRepo.getAllCats();
         return cats;
+    }
+    public List<Cat> viewAllCats() {
+        try{
+            return cats;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

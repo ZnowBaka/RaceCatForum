@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>frontPage</title>
+    <link rel="stylesheet" href="/RaceCat.css"></link>
+</head>
+<body>
+<ul>
+    <li><a class="active" href="frontPage.html">Home</a></li>
+    <li><a href="myProfile.html">Profile</a></li>
+    <li style="float: right"><a href="aboutUs.html">About</a></li>
+</ul>
+<div style="float: left; margin-left: 60px">
+    <table>
+        <tr th:each="cat : ${cats}">
+            <td><img th:src="${cat.catImage}" width="100" height="100"/></td>
+            <td th:text="${cat.catName}"></td>
+            <td th:text="${cat.description}"></td>
+
+        </tr>
+    </table>
+
+</div>
+
+</body>
+</html>
