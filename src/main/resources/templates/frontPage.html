@@ -7,37 +7,78 @@
 </head>
 <body>
 <div>
-<ul>
-    <li><a class="active" href="/frontPage">Home</a></li>
-    <li><a href="/myProfile">Profile</a></li>
-    <li style="float: right"><a href="/aboutUs">About</a></li>
-
-</ul>
-
+    <ul>
+        <li><a class="active" href="/frontPage">Home</a></li>
+        <li><a href="/myProfile">Profile</a></li>
+        <li style="float: right"><a href="/aboutUs">About</a></li>
+    </ul>
 </div>
 <div>
-    <table>
-        <caption>
-            <h1>Dette er en liste over <span th:text="${user.getUserName()}"></span> katte!</h1>
-        </caption>
-
-    </table>
+    <h1>Welcome <span th:object="${user}" th:text="${user.getUserName()}"></span></h1>
 </div>
 
-<h1>Welcome</h1>
-<h1 th:object="${user}"><span th:text="${user.getUserName()}"></span></h1>
+<div style="width: 100% ; border-style: solid; border-color: #111111; float:right">
+    <h2 style="min-width: 20%">Dette er en liste over <span th:text="${user.getUserName()}"></span>'s katte!</h2>
+    <div class="cat-list-container" style="width: 40%">
+        <div class="cat-card">
+            <figure>
+                <img src="https://randomcatgifs.com/wp-content/uploads/2018/07/cropped-0vaUsxH-1.png"
+                     alt="Cat picture was here" style="width:200px ; height:200px">
+                <figcaption>Cat age and gender</figcaption>
+            </figure>
 
 
+            <div class="cat-info">
+                <h3>Cat Name</h3>
+                <p>
+                    Where does it come from?
+
+                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
+                    classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin
+                    professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words,
+                    consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical
+                    literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33
+                    of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This
+                    book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of
+                    Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+
+                    The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.
+                    Sections 1.10.</p>
+            </div>
+        </div>
 
 
+        <!-- Add more cat cards as needed -->
+
+        <div class="cat-card">
+            <figure>
+                <img src="https://randomcatgifs.com/wp-content/uploads/2018/07/cropped-0vaUsxH-1.png"
+                     alt="Cat picture was here" style="width:200px ; height:200px">
+                <figcaption>Cat age and gender</figcaption>
+            </figure>
 
 
+            <div class="cat-info">
+                <h3>Cat Name</h3>
+                <p>
+                    Where does it come from?
 
+                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
+                    classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin
+                    professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words,
+                    consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical
+                    literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33
+                    of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This
+                    book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of
+                    Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
 
+                    The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.
+                    Sections 1.10.</p>
+            </div>
+        </div>
 
-
-
-
+    </div>
+</div>
 
 </body>
 </html>
