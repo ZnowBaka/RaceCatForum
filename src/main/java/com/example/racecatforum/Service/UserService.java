@@ -22,17 +22,15 @@ public class UserService {
     public boolean registerUser(User user) {
         try {
             if (userRepo.doesUserNameExist(user.getUserName()) == false)
-            //hashPassword(user); // for future hashing in separate method
+                //hashPassword(user); // for future hashing in separate method
                 System.out.println("testing registerUser");
-                userRepo.createNewUser(user);
+            userRepo.createNewUser(user);
             return false;
         } catch (UserAlreadyExitsException e) {
             System.out.println(e.getMessage());
         }
         return true;
     }
-
-
 
 
     public void hashPassword(User user) {
@@ -49,12 +47,18 @@ public class UserService {
 
 
     public User loginUser(User user) throws IncorrectPasswordException {
-        if (userRepo.getUserByUsername(user) != null) {
-            return user;
-        } else {
-            throw new IncorrectPasswordException("Incorrect password");
+        try {
+            User user2 = userRepo.getUserByUsername(user);
+            if (user2 != null) {
+                if (user.getUserName().equals(user2.getUserName()) && user2.getUserPass().equals(user.getUserPass())) {
+                    return user2;
+                }
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw new IncorrectPasswordException(e.getMessage());
         }
+        return null;
     }
-
-
 }

@@ -6,6 +6,38 @@
     <link rel="stylesheet" href="/RaceCat.css"></link>
 </head>
 <body>
+<div>
+<ul>
+    <li><a class="active" href="/frontPage">Home</a></li>
+    <li><a href="/myProfile">Profile</a></li>
+    <li style="float: right"><a href="/aboutUs">About</a></li>
+
+</ul>
+
+</div>
+<div>
+    <table>
+        <caption>
+            <h1>Dette er en liste over <span th:text="${user.getUserName()}"></span> katte!</h1>
+        </caption>
+
+    </table>
+</div>
+
 <h1>Welcome</h1>
+<h1 th:object="${user}"><span th:text="${user.getUserName()}"></span></h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>

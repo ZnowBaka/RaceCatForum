@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class FrontPageController {
     private final CatService catService;
     private final UserService userService;
+    private final HttpSession session;
 
-    public FrontPageController(CatService catService, UserRepo userRepo, UserService userService) {
+    public FrontPageController(CatService catService, UserRepo userRepo, UserService userService, HttpSession session) {
         this.catService = catService;
         this.userService = userService;
+        this.session = session;
     }
 
     /*
@@ -39,7 +41,7 @@ public class FrontPageController {
 
     @GetMapping("/")
     public String home(Model model) {
-       //model.addAttribute("cats", catService.getAllCats());
+        //model.addAttribute("cats", catService.getAllCats());
         return "redirect:/registerNewProfile";
     }
 
@@ -66,24 +68,31 @@ public class FrontPageController {
         return "/loginPage";
     }
 
-    @PostMapping("loginPage")
+    @PostMapping("/loginPage")
     public String postLoginPage(@ModelAttribute("user") User user, Model model) throws IncorrectPasswordException {
-        if(userService.loginUser(user) != null) {
+        User loggedInUser = userService.loginUser(user);
+        if (loggedInUser != null) {
+            session.setAttribute("currentUser", loggedInUser);
             return "redirect:/frontPage";
-        }else {
-           return "redirect:/loginPage";
+        } else if (loggedInUser == null) {
+            model.addAttribute("error", "Incorrect username or password");
+            return "/loginPage";
         }
+        return "/loginPage";
     }
 
 
     @GetMapping("/frontPage")
     public String frontPage(Model model) {
-        if (catService.viewAllCats().isEmpty()) {
-            catService.getAllCats();
-            model.addAttribute("cats", catService.viewAllCats());
-        } else {
-            model.addAttribute("cats", catService.viewAllCats());
-        }
-        return "frontPage";
+        User user = (User) session.getAttribute("currentUser");
+        model.addAttribute("user", user);
+        return "/frontPage";
     }
 }
+/*
+  if (catService.viewAllCats().isEmpty()) {
+        catService.getAllCats();
+            model.addAttribute("cats", catService.viewAllCats());
+        } else {
+        model.addAttribute("cats", catService.viewAllCats());
+        }*/

@@ -3,6 +3,7 @@ package com.example.racecatforum.Framework;
 import com.example.racecatforum.Entity.User;
 import com.example.racecatforum.Entity.UserAlreadyExitsException;
 import com.example.racecatforum.Entity.UserDoesNotExistsException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -31,8 +32,19 @@ public class UserRepo {
 
 
     public User getUserByUsername(User user) throws UserDoesNotExistsException {
-        String sql = "select * from users where user_name = ?";
-        return jdbcTemplate.queryForObject(sql, User.class, user.getUserName());
+        try {
+            String sql = "SELECT * FROM users WHERE user_name = ?";
+            return jdbcTemplate.queryForObject(sql, new Object[]{user.getUserName()}, (rs, rowNum) -> {
+                User user1 = new User();
+                user1.setUserId(rs.getInt("user_id"));
+                user1.setUserName(rs.getString("user_name"));
+                user1.setUserPass(rs.getString("user_pass"));
+                user1.setUserEmail(rs.getString("user_email"));
+                return user1;
+            });
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     public boolean doesUserNameExist(String username) throws UserDoesNotExistsException {
