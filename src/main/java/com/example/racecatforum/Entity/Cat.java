@@ -9,13 +9,12 @@ import lombok.*;
 @Data
 public class Cat {
     private int catId;
-    private String ownerName;
+    private int ownerId;
     private String catName;
-    private int catAge;
-    private String catGender;
     private String catDescription;
+    private String catGender;
     private String catImage;
-
+    private int catAge;
 
 }
 

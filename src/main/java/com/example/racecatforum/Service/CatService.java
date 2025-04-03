@@ -19,6 +19,7 @@ public class CatService {
         cats = catRepo.getAllCats();
         return cats;
     }
+
     public List<Cat> viewAllCats() {
         try{
             return cats;
@@ -27,4 +28,22 @@ public class CatService {
         }
         return null;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

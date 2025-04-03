@@ -5,6 +5,7 @@ import com.example.racecatforum.Entity.User;
 import com.example.racecatforum.Entity.UserAlreadyExitsException;
 import com.example.racecatforum.Framework.UserRepo;
 import com.example.racecatforum.Service.CatService;
+import com.example.racecatforum.Service.ProfileService;
 import com.example.racecatforum.Service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,24 +21,21 @@ public class FrontPageController {
     private final CatService catService;
     private final UserService userService;
     private final HttpSession session;
+    private final ProfileService profileService;
 
-    public FrontPageController(CatService catService, UserService userService, HttpSession session) {
+    public FrontPageController(CatService catService, UserService userService, HttpSession session, ProfileService profileService) {
         this.catService = catService;
         this.userService = userService;
         this.session = session;
+        this.profileService = profileService;
     }
 
-    /*
-        @GetMapping("/")
-        public String welcome(HttpSession session, Model model) {
-            if (session.getAttribute("sessionUser") == null) {
-                return "redirect:/registerNewProfile";
-            } else {
-                model.addAttribute("sessionUser", session.getAttribute("sessionUser"));
-                return "/frontPage";
-            }
-        }
-        */
+
+    @GetMapping("/myProfile")
+    public String myProfile(Model model) {
+        return "/myProfile";
+    }
+
 
     @GetMapping("/")
     public String home(Model model) {

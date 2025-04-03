@@ -31,9 +31,11 @@ public class UserRepo {
     }
 
 
-    public User getUserByUsername(User user) throws UserDoesNotExistsException {
+    public User getSingleUserByUsername(User user) throws UserDoesNotExistsException {
         /*
-        Code works by making a query that "just" ask for a result, that is put into an object contains the result-set
+        Code works by making a query that maps the result to a User object.
+        First it makes a new Object[], containing the "user_name" value as a query parameter
+        After the query goes through it then uses a "lambda function" to map the ResultSet (rs) to a User object.
          */
         try {
             String sql = "SELECT * FROM users WHERE user_name = ?";
@@ -56,7 +58,7 @@ public class UserRepo {
 
     public boolean doesUserNameExist(String username) throws UserDoesNotExistsException {
         String sql = "select * from users where user_name = ?";
-        if (jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class), username).size() > 0){
+        if (jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class), username).size() > 0) {
             return true;
         } else {
             return false;
@@ -77,6 +79,20 @@ public class UserRepo {
         System.out.println(affectedRows);
         return affectedRows == 1;
     }
+
+    public boolean updateUserById(User user) throws UserDoesNotExistsException {
+        String sql = "UPDATE users SET user_name = ?, user_pass = ?, user_email = ? WHERE id = ?";
+        int affectedRows = jdbcTemplate.update(sql, user.getUserName(), user.getUserPass(), user.getUserEmail(), user.getUserId());
+        return affectedRows == 1;
+    }
+
+    public boolean deleteUserById(int id) throws UserDoesNotExistsException {
+        String sql = "DELETE FROM users WHERE id = ?";
+        int affectedRows = jdbcTemplate.update(sql, id);
+        return affectedRows == 1;
+    }
+
+
 
 
 }

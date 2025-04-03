@@ -3,11 +3,10 @@ package com.example.racecatforum.Service;
 import com.example.racecatforum.Entity.IncorrectPasswordException;
 import com.example.racecatforum.Entity.User;
 import com.example.racecatforum.Entity.UserAlreadyExitsException;
+import com.example.racecatforum.Entity.UserDoesNotExistsException;
 import com.example.racecatforum.Framework.UserRepo;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
-
-import java.util.Objects;
 
 @Service
 public class UserService {
@@ -42,14 +41,14 @@ public class UserService {
     public User getUserByUsername(String username) {
         User user = new User();
         user.setUserName(username);
-        user = userRepo.getUserByUsername(user);
+        user = userRepo.getSingleUserByUsername(user);
         return user;
     }
 
 
     public User loginUser(User user) throws IncorrectPasswordException {
         try {
-            User user2 = userRepo.getUserByUsername(user);
+            User user2 = userRepo.getSingleUserByUsername(user);
             if (user2 != null) {
                 if (user.getUserName().equals(user2.getUserName()) && user2.getUserPass().equals(user.getUserPass())) {
                     return user2;
@@ -62,4 +61,22 @@ public class UserService {
         }
         return null;
     }
+
+    public boolean updateUser(User user) throws UserDoesNotExistsException {
+        try {
+            return userRepo.updateUserById(user);
+        } catch (Exception e) {
+            throw new UserDoesNotExistsException(e.getMessage());
+        }
+    }
+
+    public boolean deleteUser(User user) {
+        try {
+            return userRepo.deleteUserById(user.getUserId());
+        } catch (Exception e) {
+            throw new UserDoesNotExistsException(e.getMessage());
+        }
+    }
+
+
 }
