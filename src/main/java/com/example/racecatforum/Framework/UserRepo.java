@@ -49,10 +49,10 @@ public class UserRepo {
 
     public boolean doesUserNameExist(String username) throws UserDoesNotExistsException {
         String sql = "select * from users where user_name = ?";
-        if(jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class), username) == null) {
-            return false;
-        } else {
+        if (jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class), username).size() > 0){
             return true;
+        } else {
+            return false;
         }
     }
 
