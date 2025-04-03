@@ -32,14 +32,21 @@ public class UserRepo {
 
 
     public User getUserByUsername(User user) throws UserDoesNotExistsException {
+        /*
+        Code works by making a query that "just" ask for a result, that is put into an object contains the result-set
+         */
         try {
             String sql = "SELECT * FROM users WHERE user_name = ?";
             return jdbcTemplate.queryForObject(sql, new Object[]{user.getUserName()}, (rs, rowNum) -> {
+
                 User user1 = new User();
                 user1.setUserId(rs.getInt("user_id"));
                 user1.setUserName(rs.getString("user_name"));
                 user1.setUserPass(rs.getString("user_pass"));
                 user1.setUserEmail(rs.getString("user_email"));
+                System.out.println("User " + user1.getUserName() + " is in the db with id:" + user1.getUserId());
+                // result (User jack is in the db with id:1) it just works
+                // result User bob is in the db with id:4
                 return user1;
             });
         } catch (EmptyResultDataAccessException e) {

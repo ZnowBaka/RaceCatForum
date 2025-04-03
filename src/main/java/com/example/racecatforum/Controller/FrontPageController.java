@@ -21,7 +21,7 @@ public class FrontPageController {
     private final UserService userService;
     private final HttpSession session;
 
-    public FrontPageController(CatService catService, UserRepo userRepo, UserService userService, HttpSession session) {
+    public FrontPageController(CatService catService, UserService userService, HttpSession session) {
         this.catService = catService;
         this.userService = userService;
         this.session = session;
