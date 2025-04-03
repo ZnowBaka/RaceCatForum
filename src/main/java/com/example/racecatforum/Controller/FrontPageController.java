@@ -54,7 +54,7 @@ public class FrontPageController {
 
     @PostMapping("/registerNewProfile")
     public String postNewProfile(@ModelAttribute("newUser") User user, Model model) {
-        if (!userService.registerUser(user)) {
+        if (userService.registerUser(user)) {
             return "redirect:/loginPage";
         } else {
             model.addAttribute("error", "User already exists");

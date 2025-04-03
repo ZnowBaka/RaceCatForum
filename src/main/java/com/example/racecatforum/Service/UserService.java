@@ -25,12 +25,12 @@ public class UserService {
                 //hashPassword(user); // for future hashing in separate method
                 System.out.println("testing registerUser");
                 userRepo.createNewUser(user);
-                return false;
+                return true;
             }
         } catch (UserAlreadyExitsException e) {
             System.out.println(e.getMessage());
         }
-        return true;
+        return false;
     }
 
 
