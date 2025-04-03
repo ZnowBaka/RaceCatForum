@@ -21,11 +21,12 @@ public class UserService {
     // If the userName exist in database, the value from getUser() would NOT be null, therefore a user already exist.
     public boolean registerUser(User user) {
         try {
-            if (userRepo.doesUserNameExist(user.getUserName()) == false)
+            if (userRepo.doesUserNameExist(user.getUserName()) == false) {
                 //hashPassword(user); // for future hashing in separate method
                 System.out.println("testing registerUser");
-            userRepo.createNewUser(user);
-            return false;
+                userRepo.createNewUser(user);
+                return false;
+            }
         } catch (UserAlreadyExitsException e) {
             System.out.println(e.getMessage());
         }
