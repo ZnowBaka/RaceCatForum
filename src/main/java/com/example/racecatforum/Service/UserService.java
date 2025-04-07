@@ -5,6 +5,7 @@ import com.example.racecatforum.Entity.User;
 import com.example.racecatforum.Entity.UserAlreadyExitsException;
 import com.example.racecatforum.Entity.UserDoesNotExistsException;
 import com.example.racecatforum.Framework.UserRepo;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
