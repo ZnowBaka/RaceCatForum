@@ -27,6 +27,10 @@
         </div>
         <!--The old error div was placed here -->
     </form>
+    <div th:if="${error}" class="error-message">
+        <p th:text="${error}"></p>
+    </div>
+
 
     <!-- Login link for redirecting to login page -->
     <div class="login-link">
