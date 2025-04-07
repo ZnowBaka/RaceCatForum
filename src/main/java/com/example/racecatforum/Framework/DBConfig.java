@@ -15,7 +15,7 @@ public class DBConfig {
 
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/racekat_db");
-        dataSource.setUsername("root");
+        dataSource.setUsername("user");
         dataSource.setPassword("root");
 
         return dataSource;

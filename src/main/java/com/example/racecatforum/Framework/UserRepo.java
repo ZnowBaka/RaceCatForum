@@ -32,11 +32,6 @@ public class UserRepo {
 
 
     public User getSingleUserByUsername(User user) throws UserDoesNotExistsException {
-        /*
-        Code works by making a query that maps the result to a User object.
-        First it makes a new Object[], containing the "user_name" value as a query parameter
-        After the query goes through it then uses a "lambda function" to map the ResultSet (rs) to a User object.
-         */
         try {
             String sql = "SELECT * FROM users WHERE user_name = ?";
             return jdbcTemplate.queryForObject(sql, new Object[]{user.getUserName()}, (rs, rowNum) -> {

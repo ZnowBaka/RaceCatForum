@@ -2,19 +2,15 @@ package com.example.racecatforum.Controller;
 
 import com.example.racecatforum.Entity.IncorrectPasswordException;
 import com.example.racecatforum.Entity.User;
-import com.example.racecatforum.Entity.UserAlreadyExitsException;
-import com.example.racecatforum.Framework.UserRepo;
 import com.example.racecatforum.Service.CatService;
 import com.example.racecatforum.Service.ProfileService;
 import com.example.racecatforum.Service.UserService;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class FrontPageController {
@@ -31,9 +27,10 @@ public class FrontPageController {
     }
 
 
-    @GetMapping("/myProfile")
+    @GetMapping("/setupMyProfile")
     public String myProfile(Model model) {
-        return "/myProfile";
+
+        return "setupMyProfile";
     }
 
 
@@ -53,7 +50,12 @@ public class FrontPageController {
     @PostMapping("/registerNewProfile")
     public String postNewProfile(@ModelAttribute("newUser") User user, Model model) {
         if (userService.registerUser(user)) {
-            return "redirect:/loginPage";
+            try{
+                userService.loginUser(user);
+            } catch (IncorrectPasswordException e) {
+                e.printStackTrace();
+            }
+            return "redirect:/setupMyProfile";
         } else {
             model.addAttribute("error", "User already exists");
             return "/registerNewProfile";
