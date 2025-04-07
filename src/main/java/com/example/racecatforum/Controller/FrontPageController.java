@@ -1,6 +1,7 @@
 package com.example.racecatforum.Controller;
 
 import com.example.racecatforum.Entity.IncorrectPasswordException;
+import com.example.racecatforum.Entity.Profile;
 import com.example.racecatforum.Entity.User;
 import com.example.racecatforum.Service.CatService;
 import com.example.racecatforum.Service.ProfileService;
@@ -32,7 +33,11 @@ public class FrontPageController {
 
         return "setupMyProfile";
     }
-
+    @PostMapping("/setupMyProfile")
+    public String setupMyProfile(Model model, @ModelAttribute("newProfile") Profile profile) {
+        session.setAttribute("profile", profile);
+        return "/frontPage";
+    }
 
     @GetMapping("/")
     public String home(Model model) {
