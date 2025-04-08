@@ -11,7 +11,7 @@
     <div class="profile-card">
         <h2>Profile</h2>
         <div class="profile-details">
-            <form action="#" th:action="@{/setupMyProfile}" th:object="@{newProfile}">
+            <form action="#" th:action="@{/setupMyProfile}" th:object="${newProfile}">
             <div class="input-group">
                 <label for="profileName">Username</label>
                 <input type="text" id="profileName" name="profileName" th:field="*{profileName}">

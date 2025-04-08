@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View My Profile</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="profile-container">
+  <!-- Profile Header -->
+  <div class="profile-header" th:object="${profile}">
+    <img th:src="*{profileImage}" alt="Profile Picture" class="profile-pic">
+    <h1 class="profile-name" th:text="*{profileName}">John Doe</h1>
+  </div>
+
+  <!-- Gallery of Cats -->
+
+  <div class="cat-list-container" style="width: 40%" th:object="${profile}">
+    <div class="cat-card" th:each="@{${cat}} : ">
+      <figure>
+        <img src="https://randomcatgifs.com/wp-content/uploads/2018/07/cropped-0vaUsxH-1.png"
+             alt="Cat picture was here" style="width:200px ; height:200px">
+        <figcaption>Cat age and gender</figcaption>
+      </figure>
+
+
+      <div class="cat-info">
+        <h3>Cat Name</h3>
+        <p></p>
+      </div>
+    </div>
+  </div>
+  <!-- Add Cat Button -->
+  <form action="/add-cat" method="post">
+    <button type="submit" class="add-cat-btn">Add a Cat</button>
+  </form>
+</div>
+</body>
+</html>

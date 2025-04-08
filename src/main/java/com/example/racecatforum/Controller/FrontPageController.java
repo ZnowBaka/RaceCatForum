@@ -29,8 +29,8 @@ public class FrontPageController {
 
 
     @GetMapping("/setupMyProfile")
-    public String myProfile(Model model) {
-
+    public String myProfileSetup(Model model) {
+        model.addAttribute("newProfile", new Profile());
         return "setupMyProfile";
     }
     @PostMapping("/setupMyProfile")
@@ -38,6 +38,17 @@ public class FrontPageController {
         session.setAttribute("profile", profile);
         return "/frontPage";
     }
+
+    @GetMapping("/myProfile")
+    public String myProfile(Model model) {
+        Profile profile = (Profile) session.getAttribute("profile");
+
+        model.addAttribute("profile", profile);
+
+        return "/myProfile";
+    }
+
+
 
     @GetMapping("/")
     public String home(Model model) {
