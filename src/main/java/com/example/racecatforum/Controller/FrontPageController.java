@@ -46,8 +46,8 @@ public class FrontPageController {
     public String postNewProfile(@ModelAttribute("newUser") User user, Model model) {
         if (userService.registerUser(user)) {
             try {
-                session.setAttribute("user", user);
                 userService.loginUser(user);
+                session.setAttribute("user", userService.getUserByUsername(user.getUserName()));
             } catch (IncorrectPasswordException e) {
                 e.printStackTrace();
             }
@@ -60,30 +60,22 @@ public class FrontPageController {
     //endregion
 
 
+    //region Setup Profile Get/Put/Post
     @GetMapping("/setupMyProfile")
-    public String myProfileSetup(Model model) {
+    public String getSetupMyProfile(Model model) {
         model.addAttribute("newProfile", new Profile());
         return "setupMyProfile";
     }
 
     @PostMapping("/setupMyProfile")
-    public String setupMyProfile(Model model, @ModelAttribute("newProfile") Profile profile) {
+    public String postSetupMyProfile(Model model, @ModelAttribute("newProfile") Profile profile) {
         System.out.println(profile.getProfileName() + " " + profile.getProfileId());
         System.out.println("sending profile");
         profileService.NewProfile((User) session.getAttribute("user"), profile);
         session.setAttribute("profile", profile);
         return "redirect:/frontPage";
     }
-
-
-    @GetMapping("/myProfile")
-    public String myProfile(Model model) {
-        Profile profile = (Profile) session.getAttribute("profile");
-        model.addAttribute("profile", profile);
-        model.addAttribute("cats", profile.getPersonalCats());
-
-        return "/myProfile";
-    }
+    //endregion
 
 
     @GetMapping("/loginPage")
@@ -110,9 +102,37 @@ public class FrontPageController {
 
     @GetMapping("/frontPage")
     public String frontPage(Model model) {
-        User user = (User) session.getAttribute("currentUser");
+        User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
+        model.addAttribute("cats", catService.getAllCats());
+
         return "/frontPage";
+    }
+
+
+    @GetMapping("/myProfile")
+    public String getMyProfile(Model model) {
+        Profile profile = (Profile) session.getAttribute("profile");
+
+        model.addAttribute("profile", profile);
+        model.addAttribute("cats", profileService.readAllCatsFromProfile(profile));
+
+        return "/myProfile";
+    }
+
+
+    @GetMapping("/addCat")
+    public String addCatToProfile(Model model) {
+        model.addAttribute("newCat", new Cat());
+
+        return "/addCat";
+    }
+
+    @PostMapping("/addCat")
+    public String addCatToProfile(@ModelAttribute("newCat") Cat cat, Model model) {
+        Profile profile = (Profile) session.getAttribute("profile");
+        profileService.addCatToProfile(profile, cat);
+        return "redirect:/myProfile";
     }
 }
 /*

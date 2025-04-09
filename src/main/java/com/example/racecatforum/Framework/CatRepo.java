@@ -23,6 +23,10 @@ public class CatRepo {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Cat.class));
     }
 
+    public List<Cat> getCatsFromProfile(Profile profile) {
+        String sql = "select * from cats WHERE cat_owner_id=?";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Cat.class), profile.getProfileId());
+    }
 
     public Cat getCatById(int catId) {
         String sql = "select * from cats where cat_id=?";
@@ -57,9 +61,9 @@ public class CatRepo {
     }
 
 
-    public boolean createNewCat(Cat cat) {
+    public boolean createNewCat(Profile profile, Cat cat) {
         String sql = "INSERT INTO cats (cat_owner_id, cat_name, cat_description, cat_gender, cat_image, cat_age) VALUES (?, ?, ? , ?, ?, ?)";
-        int affectedRows = jdbcTemplate.update(sql, cat.getOwnerId(), cat.getCatName(), cat.getCatDescription(), cat.getCatGender(), cat.getCatImage(), cat.getCatAge());
+        int affectedRows = jdbcTemplate.update(sql, profile.getProfileId(), cat.getCatName(), cat.getCatDescription(), cat.getCatGender(), cat.getCatImage(), cat.getCatAge());
 
         System.out.println(affectedRows);
         return affectedRows == 1;

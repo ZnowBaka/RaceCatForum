@@ -26,7 +26,7 @@ public class UserRepo {
     }
 
     public User getUserById(int id) {
-        String sql = "select * from users where id = ?";
+        String sql = "select * from users where user_id = ?";
         return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class), id);
     }
 
@@ -81,13 +81,13 @@ public class UserRepo {
     }
 
     public boolean updateUserById(User user) throws UserDoesNotExistsException {
-        String sql = "UPDATE users SET user_name = ?, user_pass = ?, user_email = ? WHERE id = ?";
+        String sql = "UPDATE users SET user_name = ?, user_pass = ?, user_email = ? WHERE user_id = ?";
         int affectedRows = jdbcTemplate.update(sql, user.getUserName(), user.getUserPass(), user.getUserEmail(), user.getUserId());
         return affectedRows == 1;
     }
 
     public boolean deleteUserById(int id) throws UserDoesNotExistsException {
-        String sql = "DELETE FROM users WHERE id = ?";
+        String sql = "DELETE FROM users WHERE user_id = ?";
         int affectedRows = jdbcTemplate.update(sql, id);
         return affectedRows == 1;
     }

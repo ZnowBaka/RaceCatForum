@@ -6,6 +6,11 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
+
+    background-image: url('https://cdn.pixabay.com/photo/2022/12/05/05/20/cat-7635983_1280.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 .login-container {
