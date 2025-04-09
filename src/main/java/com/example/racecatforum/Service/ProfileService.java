@@ -18,6 +18,9 @@ public class ProfileService {
         }
         return false;
     }
+    public Profile getProfileById(User user){
+        return profileRepo.getProfileById(user);
+    }
     public Profile NewProfile(User user, Profile profile){
         if(profileRepo.addProfile(user, profile) == 1){
             return profile;

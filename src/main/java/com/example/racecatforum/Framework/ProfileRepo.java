@@ -24,7 +24,7 @@ public class ProfileRepo {
 
     public Profile getProfileById(User user) {
         try {
-            String sql = "SELECT * FROM profiles WHERE profile_id = ?";
+            String sql = "SELECT * FROM profiles WHERE profile_userfk = ?";
             return jdbcTemplate.queryForObject(sql, new Object[]{user.getUserId()}, (rs, rowNum) -> {
 
                 Profile profile1 = new Profile();
@@ -40,7 +40,7 @@ public class ProfileRepo {
     }
 
     public int addProfile(User user, Profile profile) {
-        String sql = "INSERT INTO profiles(profile_id, profile_name, profile_image, profile_description) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO profiles(profile_userfk, profile_name, profile_image, profile_description) VALUES (?, ?, ?, ?)";
         int affectedRows = jdbcTemplate.update(sql, user.getUserId(), profile.getProfileName(), profile.getProfileImage(), profile.getProfileDescription());
         return affectedRows;
     }

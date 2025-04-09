@@ -10,27 +10,29 @@
 <div class="profile-container">
     <div class="profile-card">
         <h2>Profile</h2>
+
+        <form th:action="@{/setupMyProfile}" th:object="${newProfile}" method="post">
         <div class="profile-details">
-            <form action="#" th:action="@{/setupMyProfile}" th:object="${newProfile}">
             <div class="input-group">
                 <label for="profileName">Username</label>
                 <input type="text" id="profileName" name="profileName" th:field="*{profileName}">
             </div>
             <div class="input-group">
-                <label for="profileImage">Address</label>
+                <label for="profileImage">imageUrl</label>
                 <input type="text" id="profileImage" name="profileImage" th:field="*{profileImage}">
             </div>
                 <div class="input-group">
-                    <label for="profileDescription">Username</label>
+                    <label for="profileDescription">Description</label>
                     <input type="text" id="profileDescription" name="profileDescription" th:field="*{profileDescription}">
                 </div>
-            </form>
+
         </div>
 
 
         <div class="button-group">
-            <button>Edit Profile</button>
+            <button type="submit" >Edit Profile</button>
         </div>
+        </form>
     </div>
 </div>
 </body>

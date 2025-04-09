@@ -26,6 +26,11 @@ public class Profile {
 
     public Profile() {
     }
+    public Profile(String profileName, String profileImage, String profileDescription) {
+        this.profileName = profileName;
+        this.profileImage = profileImage;
+        this.profileDescription = profileDescription;
+    }
 
     public ArrayList<Cat> getPersonalCats() {
         return personalCats;

@@ -1,5 +1,6 @@
 package com.example.racecatforum.Controller;
 
+import com.example.racecatforum.Entity.Cat;
 import com.example.racecatforum.Entity.IncorrectPasswordException;
 import com.example.racecatforum.Entity.Profile;
 import com.example.racecatforum.Entity.User;
@@ -35,6 +36,9 @@ public class FrontPageController {
     }
     @PostMapping("/setupMyProfile")
     public String setupMyProfile(Model model, @ModelAttribute("newProfile") Profile profile) {
+        System.out.println(profile.getProfileName() + " " + profile.getProfileId());
+        System.out.println("sending profile");
+        profileService.NewProfile((User)session.getAttribute("user"), profile);
         session.setAttribute("profile", profile);
         return "/frontPage";
     }
@@ -52,7 +56,6 @@ public class FrontPageController {
 
     @GetMapping("/")
     public String home(Model model) {
-        //model.addAttribute("cats", catService.getAllCats());
         return "redirect:/registerNewProfile";
     }
 
@@ -67,6 +70,7 @@ public class FrontPageController {
     public String postNewProfile(@ModelAttribute("newUser") User user, Model model) {
         if (userService.registerUser(user)) {
             try{
+                session.setAttribute("user", user);
                 userService.loginUser(user);
             } catch (IncorrectPasswordException e) {
                 e.printStackTrace();
@@ -88,7 +92,9 @@ public class FrontPageController {
     public String postLoginPage(@ModelAttribute("user") User user, Model model) throws IncorrectPasswordException {
         User loggedInUser = userService.loginUser(user);
         if (loggedInUser != null) {
-            session.setAttribute("currentUser", loggedInUser);
+
+            session.setAttribute("user", loggedInUser);
+            session.setAttribute("profile", profileService.getProfileById((User)session.getAttribute("user")));
             return "redirect:/frontPage";
         } else if (loggedInUser == null) {
             model.addAttribute("error", "Incorrect username or password");

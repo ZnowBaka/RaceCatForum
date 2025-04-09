@@ -1,15 +1,13 @@
 package com.example.racecatforum.Framework;
 
 
-import com.example.racecatforum.Entity.Cat;
-import com.example.racecatforum.Entity.User;
-import com.example.racecatforum.Entity.UserAlreadyExitsException;
-import com.example.racecatforum.Entity.UserDoesNotExistsException;
+import com.example.racecatforum.Entity.*;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -29,6 +27,11 @@ public class CatRepo {
     public Cat getCatById(int catId) {
         String sql = "select * from cats where cat_id=?";
         return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Cat.class), catId);
+    }
+    public ArrayList<Cat> getMyCats(Profile profile) {
+        String sql = "select * from cats where cat_owner_id=?";
+
+        return (ArrayList<Cat>) jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Cat.class), profile.getProfileId());
     }
 
 

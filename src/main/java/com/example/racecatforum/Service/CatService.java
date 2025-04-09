@@ -1,6 +1,7 @@
 package com.example.racecatforum.Service;
 
 import com.example.racecatforum.Entity.Cat;
+import com.example.racecatforum.Entity.Profile;
 import com.example.racecatforum.Framework.CatRepo;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,9 @@ public class CatService {
             e.printStackTrace();
         }
         return null;
+    }
+    public ArrayList<Cat> getAllMyCats(Profile profile) {
+        return catRepo.getMyCats(profile);
     }
 
 
