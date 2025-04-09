@@ -23,8 +23,8 @@
 
     <!-- Gallery of Cats -->
     <div class="cat-list-container" style="width: 40%" th:object="${profile}">
-        <h2><span>This is a list of <span th:text="${profileName}"></span>'s cats</span></h2>
-        <div class="cat-card" th:each="cat : ${myCats}">
+        <h2><span>This is a list of <span th:text="${profile.getProfileName()}"></span>'s cats</span></h2>
+        <div class="cat-card" th:each="cat : ${cats}">
             <figure>
                 <img th:src="${cat.getCatImage()}" alt="Cat picture was here" style="width:200px ; height:200px">
                 <figcaption style="display: flex">

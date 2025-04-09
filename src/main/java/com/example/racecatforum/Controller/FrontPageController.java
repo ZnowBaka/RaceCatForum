@@ -29,37 +29,13 @@ public class FrontPageController {
     }
 
 
-    @GetMapping("/setupMyProfile")
-    public String myProfileSetup(Model model) {
-        model.addAttribute("newProfile", new Profile());
-        return "setupMyProfile";
-    }
-    @PostMapping("/setupMyProfile")
-    public String setupMyProfile(Model model, @ModelAttribute("newProfile") Profile profile) {
-        System.out.println(profile.getProfileName() + " " + profile.getProfileId());
-        System.out.println("sending profile");
-        profileService.NewProfile((User)session.getAttribute("user"), profile);
-        session.setAttribute("profile", profile);
-        return "/frontPage";
-    }
-
-    @GetMapping("/myProfile")
-    public String myProfile(Model model) {
-        Profile profile = (Profile) session.getAttribute("profile");
-
-        model.addAttribute("profile", profile);
-
-        return "/myProfile";
-    }
-
-
-
     @GetMapping("/")
     public String home(Model model) {
         return "redirect:/registerNewProfile";
     }
 
 
+    //region Register Profile Get/Put/Post
     @GetMapping("/registerNewProfile")
     public String getNewProfile(Model model) {
         model.addAttribute("newUser", new User());
@@ -69,7 +45,7 @@ public class FrontPageController {
     @PostMapping("/registerNewProfile")
     public String postNewProfile(@ModelAttribute("newUser") User user, Model model) {
         if (userService.registerUser(user)) {
-            try{
+            try {
                 session.setAttribute("user", user);
                 userService.loginUser(user);
             } catch (IncorrectPasswordException e) {
@@ -81,6 +57,34 @@ public class FrontPageController {
             return "/registerNewProfile";
         }
     }
+    //endregion
+
+
+    @GetMapping("/setupMyProfile")
+    public String myProfileSetup(Model model) {
+        model.addAttribute("newProfile", new Profile());
+        return "setupMyProfile";
+    }
+
+    @PostMapping("/setupMyProfile")
+    public String setupMyProfile(Model model, @ModelAttribute("newProfile") Profile profile) {
+        System.out.println(profile.getProfileName() + " " + profile.getProfileId());
+        System.out.println("sending profile");
+        profileService.NewProfile((User) session.getAttribute("user"), profile);
+        session.setAttribute("profile", profile);
+        return "redirect:/frontPage";
+    }
+
+
+    @GetMapping("/myProfile")
+    public String myProfile(Model model) {
+        Profile profile = (Profile) session.getAttribute("profile");
+        model.addAttribute("profile", profile);
+        model.addAttribute("cats", profile.getPersonalCats());
+
+        return "/myProfile";
+    }
+
 
     @GetMapping("/loginPage")
     public String loginPage(Model model) {
@@ -94,7 +98,7 @@ public class FrontPageController {
         if (loggedInUser != null) {
 
             session.setAttribute("user", loggedInUser);
-            session.setAttribute("profile", profileService.getProfileById((User)session.getAttribute("user")));
+            session.setAttribute("profile", profileService.getProfileById((User) session.getAttribute("user")));
             return "redirect:/frontPage";
         } else if (loggedInUser == null) {
             model.addAttribute("error", "Incorrect username or password");
