@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Profile</title>
+  <link rel="stylesheet" href="/ProfileStyles.css">
+</head>
+<body>
+<!-- Header Navbar -->
+<div>
+  <nav class="navbar">
+    <ul>
+      <li><a href="/frontPage">Home</a></li>
+      <li><a class="active" href="/myProfile">Profile</a></li>
+      <li style="float: right"><a href="/aboutUs">About</a></li>
+      <li style="float: right"><a href="/loginPage">Logout</a></li>
+    </ul>
+  </nav>
+</div>
+
+<!-- Main container for everything else -->
+<main style="width: 100% ; border-style: solid; border-color: #111111; float:right">
+  <!-- Profile Header -->
+  <section>
+    <div class="profile-container">
+      <div class="profile-header" th:object="${profile}">
+        <div class="profile-card">
+          <h1 class="profile-name" th:text="*{profileName}">John Doe</h1>
+          <figure>
+            <img th:src="*{profileImage}" alt="Profile Picture" class="profile-pic"
+                 style="width:400px;height:400px;">
+            <figcaption class="profile-details" style="display: flex">
+              <span th:text="*{profileDescription}"></span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+  <!-- Gallery of Cats -->
+  <aside class="cat-list-container" style="width: 40%" th:object="${profile}">
+    <!-- Add Cat Button -->
+    <h2><span>This is a list of <span th:text="${profile.getProfileName()}"></span>'s cats</span></h2>
+
+    <div class="cat-card" th:each="cat : ${cats}">
+      <figure>
+        <img th:src="${cat.getCatImage()}" alt="Cat picture was here" style="width:200px ; height:200px">
+        <figcaption style="display: flex">
+          <span>Age: <span th:text="${cat.getCatAge()}"></span> years.</span>
+          <span th:text="${cat.getCatGender()}"></span>
+        </figcaption>
+      </figure>
+
+      <div class="cat-info">
+        <h3 th:text="${cat.getCatName()}"></h3>
+        <p th:text="${cat.getCatDescription()}"></p>
+      </div>
+    </div>
+  </aside>
+</main>
+</body>
+</html>

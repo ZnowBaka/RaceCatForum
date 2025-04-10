@@ -31,6 +31,9 @@ public class ProfileService {
     public Profile getProfileById(User user) {
         return profileRepo.getProfileById(user);
     }
+    public Profile getProfileById(int id) {
+        return profileRepo.getProfileById(id);
+    }
 
     public Profile NewProfile(User user, Profile profile) {
         if (profileRepo.addProfile(user, profile) == 1) {

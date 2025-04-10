@@ -191,6 +191,13 @@ public class FrontPageController {
         return "redirect:/registerNewProfile";
     }
 
+    @GetMapping("/viewProfile/{id}")
+    public String viewProfile(Model model, @PathVariable int id) {
+        Profile profile = profileService.getProfileById(id);
+        model.addAttribute("profile", profile);
+        model.addAttribute("cats", profileService.readAllCatsFromProfile(profile));
+        return "/viewProfile";
+    }
 
 }
 /*

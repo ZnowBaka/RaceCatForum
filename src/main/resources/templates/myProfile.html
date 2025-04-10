@@ -60,8 +60,8 @@
             <figure>
                 <img th:src="${cat.getCatImage()}" alt="Cat picture was here" style="width:200px ; height:200px">
                 <figcaption style="display: flex">
-                    <span>Age: <span th:text="${cat.getCatAge()}"></span> years. Gender: <span
-                            th:text="${cat.getCatGender()}"></span>.</span>
+                    <span>Age: <span th:text="${cat.getCatAge()}"></span> years.</span>
+                    <span th:text="${cat.getCatGender()}"></span>
                 </figcaption>
             </figure>
 
@@ -74,11 +74,7 @@
                     <button>Edit</button>
                 </a><br>
                 <a style="float: right" th:href="@{'/deleteCat/' + ${cat.getCatId()}}"><button>Remove</button></a>
-
-
             </p>
-
-
         </div>
     </aside>
 
