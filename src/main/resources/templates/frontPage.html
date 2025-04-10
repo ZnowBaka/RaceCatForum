@@ -23,6 +23,24 @@
     <div>
         <h1>Welcome <span th:object="${user}" th:text="${user.getUserName()}"></span></h1>
     </div>
+    <div class="profile-list-container" style="width: 40%">
+        <h2>This is a list of all our collective profiles</h2>
+
+        <div class="profile-card" th:each="profile : ${profiles}">
+            <figure>
+                <img th:src="${profile.getProfileImage()}" alt="Cat picture was here" style="width:200px ; height:200px">
+                <figcaption style="display: flex">
+                    <span>Name: <span th:text="${profile.getProfileName()}"></span> <a th:href="@{'/viewProfile' + ${profile.getProfileId()}}"><button>view Profile</button></a> </span>
+                </figcaption>
+            </figure>
+
+            <div class="profile-info">
+                <h3 th:text="${profile.getProfileName()}"></h3>
+                <p th:text="${profile.getProfileDescription()}"></p>
+            </div>
+
+        </div>
+    </div>
 
     <div class="cat-list-container" style="width: 40%">
         <h2>This is a list of all our collective cats, please enjoy looking at them!</h2>

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
+
 @Controller
 public class FrontPageController {
     private final CatService catService;
@@ -106,9 +108,10 @@ public class FrontPageController {
     @GetMapping("/frontPage")
     public String frontPage(Model model) {
         User user = (User) session.getAttribute("user");
+
         model.addAttribute("user", user);
         model.addAttribute("cats", catService.getAllCats());
-
+        model.addAttribute("profiles", profileService.readAllProfiles());
         return "/frontPage";
     }
 

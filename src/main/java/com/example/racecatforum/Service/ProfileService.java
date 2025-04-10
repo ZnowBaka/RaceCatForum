@@ -8,6 +8,7 @@ import com.example.racecatforum.Framework.CatRepo;
 import com.example.racecatforum.Framework.ProfileRepo;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -59,6 +60,9 @@ public class ProfileService {
             return false;
         }
     }
+    public List<Profile> readAllProfiles() {
 
+        return profileRepo.getAllProfiles();
+    }
 
 }
