@@ -72,7 +72,7 @@ public class FrontPageController {
         System.out.println(profile.getProfileName() + " " + profile.getProfileId());
         System.out.println("sending profile");
         profileService.NewProfile((User) session.getAttribute("user"), profile);
-        session.setAttribute("profile", profile);
+        session.setAttribute("profile", profileService.getProfileById((User) session.getAttribute("user")));
         return "redirect:/frontPage";
     }
     //endregion
