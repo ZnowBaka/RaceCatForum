@@ -162,27 +162,29 @@ public class FrontPageController {
         return "redirect:/myProfile";
     }
 
-    @GetMapping("/editProfile")
+    @GetMapping("/editProfile/{id}")
     public String editProfile(Model model) {
         Profile profile = (Profile) session.getAttribute("profile");
+        User user = (User) session.getAttribute("user");
         model.addAttribute("profile", profile);
+        model.addAttribute("user", user);
         return "/editProfile";
     }
 
-    @PostMapping("/updateProfile")
+    @PostMapping("/updateProfile/{id}")
     public String updateProfile(@ModelAttribute("profile") Profile profile) {
         if (profileService.updateProfile(profile)) {
+            session.setAttribute("profile", profileService.getProfileById((User) session.getAttribute("user")));
             return "redirect:/myProfile";
         } else {
-            return "/editProfile";
+            return "redirect:/editProfile";
         }
     }
 
-    @GetMapping("/deleteProfile")
-    public String deleteProfile(@ModelAttribute("profile") Profile profile) {
-        userService.deleteUser((User) session.getAttribute("user"));
-        session.invalidate();
-        session.isNew();
+    @GetMapping("/deleteProfile/{id}")
+    public String deleteProfile(@ModelAttribute Profile profile, @PathVariable int id) {
+        userService.deleteUserById(id);
+
         return "redirect:/registerNewProfile";
     }
 

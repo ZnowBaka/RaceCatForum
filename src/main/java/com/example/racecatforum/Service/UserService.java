@@ -71,11 +71,11 @@ public class UserService {
         }
     }
 
-    public boolean deleteUser(User user) {
-        try {
-            return userRepo.deleteUserById(user);
-        } catch (Exception e) {
-            throw new UserDoesNotExistsException(e.getMessage());
+    public boolean deleteUserById(int userId) {
+        if (userRepo.deleteUserById(userId)) {
+            return true;
+        } else {
+            return false;
         }
     }
 

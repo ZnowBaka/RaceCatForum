@@ -28,7 +28,9 @@
         <div class="profile-container">
             <div class="profile-header" th:object="${profile}">
                 <div class="profile-card">
-                    <a style="float: right" th:href="@{/editProfile}"><button>Edit Profile</button></a>
+                    <a style="float: right" th:href="@{'/editProfile/' + ${profile.getProfileId()}}">
+                        <button>Edit Profile</button>
+                    </a>
                     <h1 class="profile-name" th:text="*{profileName}">John Doe</h1>
                     <figure>
                         <img th:src="*{profileImage}" alt="Profile Picture" class="profile-pic"
@@ -68,12 +70,12 @@
                 <p th:text="${cat.getCatDescription()}"></p>
             </div>
             <p>
-                <a style="float: right" th:href="@{'/editCat/' + ${cat.getCatId()}}">
+                <a style="float: right; width: 46px" th:href="@{'/editCat/' + ${cat.getCatId()}}">
                     <button>Edit</button>
-                </a>
-                <a style="float: right" th:href="@{'/deleteCat/' + ${cat.getCatId()}}">
-                    <button>Remove</button>
-                </a>
+                </a><br>
+                <a style="float: right" th:href="@{'/deleteCat/' + ${cat.getCatId()}}"><button>Remove</button></a>
+
+
             </p>
 
 

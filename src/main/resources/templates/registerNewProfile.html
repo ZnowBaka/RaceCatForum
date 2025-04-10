@@ -3,39 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Profile Page</title>
+    <title>Register Page</title>
     <link rel="stylesheet" href="/RegisterStyles.css"> <!-- Link to your external CSS file -->
 </head>
 <body>
 <div class="login-container">
-    <h2>Edit your profile</h2>
+    <h2>Register</h2>
 
-    <form th:action="@{/editProfile/{id}}" th:object="${profile}" method="post">
-        <input type="hidden" th:field="*{}">
-
-        <div class="profile-details">
-            <div class="input-group">
-                <label for="profileName">Username</label>
-                <input type="text" id="profileName" name="profileName" th:field="*{profileName}">
-            </div>
-            <div class="input-group">
-                <label for="profileImage">imageUrl</label>
-                <input type="text" id="profileImage" name="profileImage" th:field="*{profileImage}">
-            </div>
-            <div class="input-group">
-                <label for="profileDescription">Description</label>
-                <input type="text" id="profileDescription" name="profileDescription" th:field="*{profileDescription}">
-            </div>
+    <form action="#" th:action="@{/registerNewProfile}" th:object="${newUser}" method="post">
+        <div class="input-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="userName" th:field="*{userName}" required />
         </div>
-
-
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="userPass" th:field="*{userPass}" required />
+        </div>
+        <div class="input-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="userEmail" th:field="*{userEmail}" required />
+        </div>
         <div class="button-group">
-            <button type="submit" >Complete Profile Setup</button>
+            <button type="submit">Register</button>
         </div>
+        <!--The old error div was placed here -->
+    </form>
+
+    <div th:if="${error}" class="error-message">
+        <p th:text="${error}"></p>
+    </div>
 
     <!-- Login link for redirecting to login page -->
     <div class="login-link">
-        <p>Already have an account? <a th:href="@{/loginPage}"><button>Login Here</button></a></p>
+        <p>Already have an account? <a href="/loginPage">Login here</a></p>
     </div>
 </div>
 </body>

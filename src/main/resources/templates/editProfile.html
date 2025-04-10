@@ -9,11 +9,13 @@
 <body>
 <div class="login-container">
     <h2>Edit your profile</h2>
+    <p><a th:href="@{'/deleteProfile/' + ${user.getUserId()}}"><button>Delete</button></a> Do you wish to delete your profile?<br>WARNING this is permanent, there will be no way to recover your data!</p>
 
-    <form action="#" th:action="@{/updateProfile}" th:object="${profile}" method="post">
-
+    <form action="#" th:action="@{/updateProfile/{id}}" th:object="${profile}" method="post">
         <div class="profile-details">
             <div class="input-group">
+                <input type="hidden" th:field="*{profileId}">
+
                 <label for="profileName">Username</label>
                 <input type="text" id="profileName" name="profileName" th:field="*{profileName}" required/><br>
 
@@ -28,8 +30,6 @@
         <div class="button-group">
             <p>Submit these changes to our database? <button type="submit">Submit Changes</button></p>
         </div>
-        <p>Do you wish to delete your profile? <a style="float: right" th:href="@{/deleteProfile}"><button>Delete</button></a><br> WARNING this is permanent, there will be no way to recover your data!</p>
-
     </form>
 
 
