@@ -32,6 +32,7 @@ public class CatRepo {
         String sql = "select * from cats where cat_id=?";
         return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Cat.class), catId);
     }
+
     public ArrayList<Cat> getMyCats(Profile profile) {
         String sql = "select * from cats where cat_owner_id=?";
 
@@ -70,13 +71,14 @@ public class CatRepo {
     }
 
     public boolean updateCatById(Cat cat) throws UserDoesNotExistsException {
-        String sql = "UPDATE cats SET cat_name = ?, cat_description = ?, cat_gender = ?, cat_image = ?, cat_age = ? WHERE id = ?";
-        int affectedRows = jdbcTemplate.update(sql, cat.getCatName(), cat.getCatDescription(), cat.getCatGender(), cat.getCatImage(), cat.getCatAge());
+        String sql = "UPDATE cats SET cat_name = ?, cat_description = ?, cat_gender = ?, cat_image = ?, cat_age = ? WHERE cat_id = ?";
+        int affectedRows = jdbcTemplate.update(sql, cat.getCatName(), cat.getCatDescription(), cat.getCatGender(), cat.getCatImage(), cat.getCatAge(), cat.getCatId());
         return affectedRows == 1;
+
     }
 
     public boolean deleteCatById(int id) {
-        String sql = "DELETE FROM cats WHERE id = ?";
+        String sql = "DELETE FROM cats WHERE cat_id = ?";
         int affectedRows = jdbcTemplate.update(sql, id);
         return affectedRows == 1;
     }

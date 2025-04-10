@@ -29,8 +29,33 @@ public class CatService {
         }
         return null;
     }
+
     public ArrayList<Cat> getAllMyCats(Profile profile) {
         return catRepo.getMyCats(profile);
+    }
+
+    public Cat getCatById(int catId) {
+        if (catRepo.getCatById(catId) != null) {
+            return catRepo.getCatById(catId);
+        }
+
+        return null;
+    }
+
+    public boolean updateCat(Cat cat) {
+        if (catRepo.updateCatById(cat)){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    public boolean deleteCat(int catId) {
+        if(catRepo.deleteCatById(catId)){
+            return true;
+        } else {
+            return false;
+        }
     }
 
 

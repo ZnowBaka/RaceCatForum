@@ -14,6 +14,7 @@
             <li><a href="/frontPage">Home</a></li>
             <li><a class="active" href="/myProfile">Profile</a></li>
             <li style="float: right"><a href="/aboutUs">About</a></li>
+            <li style="float: right"><a href="/loginPage">Logout</a></li>
         </ul>
     </nav>
 </div>
@@ -48,7 +49,9 @@
 
 
         <h2><span>This is a list of <span th:text="${profile.getProfileName()}"></span>'s cats</span></h2>
-        <a th:href="@{/addCat}"><button>Add Cat</button></a>
+        <a th:href="@{/addCat}">
+            <button>Add Cat</button>
+        </a>
 
         <div class="cat-card" th:each="cat : ${cats}">
             <figure>
@@ -63,6 +66,12 @@
                 <h3 th:text="${cat.getCatName()}"></h3>
                 <p th:text="${cat.getCatDescription()}"></p>
             </div>
+            <p>
+                <a style="float: right" th:href="@{'/editCat/' + ${cat.getCatId()}}"><button>Edit</button></a>
+                <a style="float: right" th:href="@{'/deleteCat/' + ${cat.getCatId()}}"><button>Remove</button></a>
+            </p>
+
+
         </div>
     </aside>
 

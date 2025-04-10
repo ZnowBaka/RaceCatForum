@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -80,6 +81,8 @@ public class FrontPageController {
 
     @GetMapping("/loginPage")
     public String loginPage(Model model) {
+        session.invalidate();
+        session.isNew();
         model.addAttribute("user", new User());
         return "/loginPage";
     }
@@ -134,6 +137,33 @@ public class FrontPageController {
         profileService.addCatToProfile(profile, cat);
         return "redirect:/myProfile";
     }
+
+    @GetMapping("/editCat/{id}")
+    public String editCat(Model model, @PathVariable int id) {
+        model.addAttribute("cat",catService.getCatById((int)id));
+
+        return "/editCat";
+    }
+
+    @PostMapping("/updateCat/{id}")
+    public String updateCat(@ModelAttribute Cat cat) {
+        if (catService.updateCat(cat)){
+            return "redirect:/myProfile";
+        } else {
+            return "redirect:/editCat/{id}";
+        }
+
+    }
+
+    @GetMapping("/deleteCat/{id}")
+    public String deleteCat(@ModelAttribute Cat cat, @PathVariable int id) {
+        catService.deleteCat(id);
+
+        return "redirect:/myProfile";
+    }
+
+
+
 }
 /*
   if (catService.viewAllCats().isEmpty()) {

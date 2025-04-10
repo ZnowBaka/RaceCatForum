@@ -20,10 +20,11 @@
 
 <!-- Add Cat container -->
 <div class="login-container">
-    <h2>Add cat to profile</h2>
+    <h2>Edit Cat</h2>
 
-    <form action="#" th:action="@{/addCat}" th:object="${newCat}" method="post">
+    <form action="#" th:action="@{/updateCat/{id}}" th:object="${cat}" method="post">
         <div class="input-group">
+            <input type="hidden" th:field="*{catId}">
 
             <label for="newCatName">Cat Name</label>
             <input type="text" id="newCatName" name="catName" th:field="*{catName}" required/><br>
@@ -40,14 +41,12 @@
             <label for="newCatAge">Cat Age</label>
             <input type="number" id="newCatAge" name="catAge" th:field="*{catAge}" required/><br>
 
-
             <div class="button-group">
-                <button type="submit">Complete Adding Cat</button>
+                <p>Submit these changes to our database? <button type="submit">Submit Changes</button></p>
             </div>
 
         </div>
     </form>
-
 
 </div>
 
