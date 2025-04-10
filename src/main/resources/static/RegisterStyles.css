@@ -1,4 +1,51 @@
-/* General body styling */
+.navbar ul {
+    list-style-type: none;
+    background-color: #333;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 15px;
+    display: block;
+    text-align: center;
+}
+
+.navbar a:hover {
+    background-color: cornflowerblue;
+}
+
+.navbar li {
+    float: left;
+    border-right: 1px solid #bbb;
+    border-left: 1px solid #bbb;
+}
+
+/* NAVBAR SECTION OVER */
+
+
+li:last-child {
+    border-right: none;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.active {
+    background-color: #04AA6D;
+}
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -14,22 +61,19 @@ body {
     background-size: cover;
 }
 
-/* Login container */
 .login-container {
     background-color: white;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 600px;
 }
 
-/* Heading styling */
 h2 {
     text-align: center;
     margin-bottom: 20px;
 }
 
-/* Input group styling */
 .input-group {
     margin-bottom: 15px;
 }
@@ -48,7 +92,6 @@ h2 {
     border-radius: 4px;
 }
 
-/* Button group styling */
 .button-group {
     text-align: center;
 }
@@ -66,26 +109,4 @@ h2 {
 
 .button-group button:hover {
     background-color: #45a049;
-}
-
-/* Error message styling */
-.error {
-    color: red;
-    font-size: 14px;
-    margin-top: 10px;
-}
-
-/* Login link styling */
-.login-link {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.login-link a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-.login-link a:hover {
-    text-decoration: underline;
 }
