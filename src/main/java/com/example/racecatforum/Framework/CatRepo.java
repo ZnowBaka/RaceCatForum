@@ -70,7 +70,7 @@ public class CatRepo {
         return affectedRows == 1;
     }
 
-    public boolean updateCatById(Cat cat) throws UserDoesNotExistsException {
+    public boolean updateCatById(Cat cat) {
         String sql = "UPDATE cats SET cat_name = ?, cat_description = ?, cat_gender = ?, cat_image = ?, cat_age = ? WHERE cat_id = ?";
         int affectedRows = jdbcTemplate.update(sql, cat.getCatName(), cat.getCatDescription(), cat.getCatGender(), cat.getCatImage(), cat.getCatAge(), cat.getCatId());
         return affectedRows == 1;

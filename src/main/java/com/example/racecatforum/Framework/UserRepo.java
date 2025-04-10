@@ -86,11 +86,10 @@ public class UserRepo {
         return affectedRows == 1;
     }
 
-    public boolean deleteUserById(int id) throws UserDoesNotExistsException {
+    public boolean deleteUserById(User user) throws UserDoesNotExistsException {
         String sql = "DELETE FROM users WHERE user_id = ?";
-        int affectedRows = jdbcTemplate.update(sql, id);
+        int affectedRows = jdbcTemplate.update(sql, user.getUserId());
         return affectedRows == 1;
     }
-
 
 }

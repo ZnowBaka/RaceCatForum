@@ -62,4 +62,11 @@ public class ProfileRepo {
         return affectedRows;
     }
 
+    public boolean updateProfile(Profile profile) {
+        String sql = "UPDATE profiles SET profile_name = ?, profile_image = ?, profile_description = ?  WHERE profile_id = ?";
+        int affectedRows= jdbcTemplate.update(sql,profile.getProfileName(), profile.getProfileImage(), profile.getProfileDescription(), profile.getProfileId());
+        return affectedRows == 1;
+    }
+
+
 }

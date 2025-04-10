@@ -73,7 +73,7 @@ public class UserService {
 
     public boolean deleteUser(User user) {
         try {
-            return userRepo.deleteUserById(user.getUserId());
+            return userRepo.deleteUserById(user);
         } catch (Exception e) {
             throw new UserDoesNotExistsException(e.getMessage());
         }

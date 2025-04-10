@@ -140,14 +140,14 @@ public class FrontPageController {
 
     @GetMapping("/editCat/{id}")
     public String editCat(Model model, @PathVariable int id) {
-        model.addAttribute("cat",catService.getCatById((int)id));
+        model.addAttribute("cat", catService.getCatById((int) id));
 
         return "/editCat";
     }
 
     @PostMapping("/updateCat/{id}")
     public String updateCat(@ModelAttribute Cat cat) {
-        if (catService.updateCat(cat)){
+        if (catService.updateCat(cat)) {
             return "redirect:/myProfile";
         } else {
             return "redirect:/editCat/{id}";
@@ -162,6 +162,29 @@ public class FrontPageController {
         return "redirect:/myProfile";
     }
 
+    @GetMapping("/editProfile")
+    public String editProfile(Model model) {
+        Profile profile = (Profile) session.getAttribute("profile");
+        model.addAttribute("profile", profile);
+        return "/editProfile";
+    }
+
+    @PostMapping("/updateProfile")
+    public String updateProfile(@ModelAttribute("profile") Profile profile) {
+        if (profileService.updateProfile(profile)) {
+            return "redirect:/myProfile";
+        } else {
+            return "/editProfile";
+        }
+    }
+
+    @GetMapping("/deleteProfile")
+    public String deleteProfile(@ModelAttribute("profile") Profile profile) {
+        userService.deleteUser((User) session.getAttribute("user"));
+        session.invalidate();
+        session.isNew();
+        return "redirect:/registerNewProfile";
+    }
 
 
 }

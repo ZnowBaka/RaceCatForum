@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="/ProfileStyles.css">
+</head>
+<body>
+<div class="login-container">
+    <h2>Edit your profile</h2>
+
+    <form action="#" th:action="@{/updateProfile}" th:object="${profile}" method="post">
+
+        <div class="profile-details">
+            <div class="input-group">
+                <label for="profileName">Username</label>
+                <input type="text" id="profileName" name="profileName" th:field="*{profileName}" required/><br>
+
+                <label for="profileImage">imageUrl</label>
+                <input type="text" id="profileImage" name="profileImage" th:field="*{profileImage}"required/><br>
+
+                <label for="profileDescription">Description</label>
+                <input type="text" id="profileDescription" name="profileDescription" th:field="*{profileDescription}" required/><br>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <p>Submit these changes to our database? <button type="submit">Submit Changes</button></p>
+        </div>
+        <p>Do you wish to delete your profile? <a style="float: right" th:href="@{/deleteProfile}"><button>Delete</button></a><br> WARNING this is permanent, there will be no way to recover your data!</p>
+
+    </form>
+
+
+
+</div>
+</body>
+</html>
