@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+</head>
+<body>
+<h2>Something went very wrong!</h2>
+    <div class="error-message">
+        <p th:text="${error}">An unknown error has occurred, please try reloading the front page.</p>
+    </div>
+<a href="/" class="button">Tilbage til forsiden</a>
+
+</body>
+</html>

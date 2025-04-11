@@ -1,12 +1,12 @@
 package com.example.racecatforum.Entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Data
 public class User {
     private int userId;

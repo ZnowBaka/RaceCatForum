@@ -1,7 +1,7 @@
 h1 {
+    background-color: #c7b599;
     color: #333;
     text-align: center;
-    background-color: #c7b599;
     padding: 0;
     margin: 0;
 
@@ -9,7 +9,7 @@ h1 {
 
 .navbar ul {
     list-style-type: none;
-    background-color: #444;
+    background-color: #333;
     padding: 0;
     margin: 0;
     overflow: hidden;
@@ -35,6 +35,55 @@ h1 {
 
 /* NAVBAR SECTION OVER */
 
+.profile-container {
+    width: clamp(300px, 80%, 1000px);
+    margin: 0 auto;
+    padding: 1rem;
+
+}
+
+.profile-header {
+    float: left;
+    padding: 0;
+    margin: 0;
+}
+
+.profile-card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 480px;
+
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.profile-pic {
+    background-color: #fff;
+    padding: 20px;
+}
+
+.profile-name {
+    font-family: "Comic Sans MS", sans-serif;
+    color: black;
+    font-size: 30px;
+}
+
+.profile-details {
+    font-family: Verdana, sans-serif;
+    color: black;
+    font-size: 20px;
+    background-color: #fff;
+    width: 440px;
+    max-width: 500px;
+    min-width: 300px;
+
+}
+
+
+
+/* PROFILE CARD SECTION OVER */
+
+
 
 li:last-child {
     border-right: none;
@@ -42,18 +91,18 @@ li:last-child {
 
 li a {
     display: block;
-    color: #444444;
+    color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
 
 li a:hover:not(.active) {
-    background-color: #777;
+    background-color: #111;
 }
 
 .active {
-    background-color: #675;
+    background-color: #04AA6D;
 }
 
 th,
@@ -105,6 +154,7 @@ body {
 }
 
 .cat-list-container {
+
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -114,6 +164,13 @@ body {
     margin: 0 auto 20px;
     padding: 1rem;
     overflow: hidden; /* Ensures no overflow issues */
+
+
+
+
+
+
+
 }
 
 .cat-card {
@@ -136,43 +193,6 @@ body {
 }
 
 .cat-info {
-    text-align: left;
-    flex-grow: 1; /* Ensures text area expands properly */
-    min-width: 150px; /* Prevents text from squishing */
-}
-.profile-list-container {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-    min-width: 600px;
-    width: clamp(300px, 80%, 1000px);
-    margin: 0 auto 20px;
-    padding: 1rem;
-    overflow: hidden; /* Ensures no overflow issues */
-    float: left;
-}
-
-.profile-card {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #fff;
-    width: 100%; /* Ensures it stays inside container */
-    box-sizing: border-box; /* Includes padding inside width */
-}
-
-.profile-card img {
-    width: 100px;
-    height: 100px;
-    border-radius: 8px;
-    object-fit: cover;
-}
-
-.profile-info {
     text-align: left;
     flex-grow: 1; /* Ensures text area expands properly */
     min-width: 150px; /* Prevents text from squishing */

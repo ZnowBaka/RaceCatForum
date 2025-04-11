@@ -3,12 +3,13 @@ package com.example.racecatforum.Service;
 import com.example.racecatforum.Entity.IncorrectPasswordException;
 import com.example.racecatforum.Entity.User;
 import com.example.racecatforum.Entity.UserAlreadyExitsException;
+import com.example.racecatforum.Entity.UserDoesNotExistsException;
 import com.example.racecatforum.Framework.UserRepo;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.util.Objects;
-
+@Service
 public class UserService {
     private final UserRepo userRepo;
 
@@ -16,28 +17,20 @@ public class UserService {
         this.userRepo = userRepo;
     }
 
+
+    // If the userName exist in database, the value from getUser() would NOT be null, therefore a user already exist.
     public boolean registerUser(User user) {
         try {
-            if (doesUserNameExist(user)) {
+            if (userRepo.doesUserNameExist(user.getUserName()) == false) {
                 //hashPassword(user); // for future hashing in separate method
-                userRepo.registerUser(user);
+                System.out.println("testing registerUser");
+                userRepo.createNewUser(user);
                 return true;
             }
-
         } catch (UserAlreadyExitsException e) {
             System.out.println(e.getMessage());
         }
         return false;
-    }
-
-    // If the userName (which is Unique) already is in the database, the returned user from getUser() would NOT be null, therefore a user already exist.
-    // If the return value is null, then there was no user with that username in the database, therefore if result is == to null, we return true.
-    public boolean doesUserNameExist(User user) throws UserAlreadyExitsException {
-        if (userRepo.getUserByUsername(user.getUserName()) == null) {
-            return true;
-        } else {
-            throw new UserAlreadyExitsException("User with that username already exits");
-        }
     }
 
 
@@ -46,13 +39,43 @@ public class UserService {
         user.setUserPass(hashed);
     }
 
+    public User getUserByUsername(String username) {
+        User user = new User();
+        user.setUserName(username);
+        user = userRepo.getSingleUserByUsername(user);
+        return user;
+    }
 
-    public User loginUser(String username, String password) throws IncorrectPasswordException {
-        User user = userRepo.getUserByUsername(username);
-        if ((user != null) && Objects.equals(password, userRepo.getUserById(user.getUserId()).getUserPass())) {
-            return user;
+
+    public User loginUser(User user) throws IncorrectPasswordException {
+        try {
+            User user2 = userRepo.getSingleUserByUsername(user);
+            if (user2 != null) {
+                if (user.getUserName().equals(user2.getUserName()) && user2.getUserPass().equals(user.getUserPass())) {
+                    return user2;
+                }
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw new IncorrectPasswordException(e.getMessage());
+        }
+        return null;
+    }
+
+    public boolean updateUser(User user) throws UserDoesNotExistsException {
+        try {
+            return userRepo.updateUserById(user);
+        } catch (Exception e) {
+            throw new UserDoesNotExistsException(e.getMessage());
+        }
+    }
+
+    public boolean deleteUserById(int userId) {
+        if (userRepo.deleteUserById(userId)) {
+            return true;
         } else {
-            throw new IncorrectPasswordException("Incorrect password");
+            return false;
         }
     }
 

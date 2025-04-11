@@ -6,22 +6,63 @@
     <link rel="stylesheet" href="/RaceCat.css"></link>
 </head>
 <body>
-<ul>
-    <li><a class="active" href="frontPage.html">Home</a></li>
-    <li><a href="myProfile.html">Profile</a></li>
-    <li style="float: right"><a href="aboutUs.html">About</a></li>
-</ul>
-<div style="float: left; margin-left: 60px">
-    <table>
-        <tr th:each="cat : ${cats}">
-            <td><img th:src="${cat.catImage}" width="100" height="100"/></td>
-            <td th:text="${cat.catName}"></td>
-            <td th:text="${cat.description}"></td>
-
-        </tr>
-    </table>
-
+<!-- Header Navbar -->
+<div>
+    <nav class="navbar">
+        <ul>
+            <li><a class="active" href="/frontPage">Home</a></li>
+            <li><a href="/myProfile">Profile</a></li>
+            <li style="float: right"><a href="/aboutUs">About</a></li>
+        </ul>
+    </nav>
 </div>
 
+<!-- Main container for everything else -->
+<main style="width: 100% ; border-style: solid; border-color: #111111; float:right">
+
+    <div>
+        <h1>Welcome <span th:object="${user}" th:text="${user.getUserName()}"></span></h1>
+    </div>
+    <div class="profile-list-container" style="width: 20%">
+        <h2>This is a list of all our collective profiles</h2>
+
+        <div class="profile-card" th:each="profile : ${profiles}">
+            <figure>
+                <img th:src="${profile.getProfileImage()}" alt="profile picture was here" style="width:200px ; height:200px">
+                <figcaption style="display: flex">
+                    <span>Name: <span th:text="${profile.getProfileName()}"></span> </span>
+                    <a th:href="@{'/viewProfile/' + ${profile.getProfileId()}}"><button>view Profile</button></a>
+                </figcaption>
+            </figure>
+
+            <div class="profile-info">
+                <h3 th:text="${profile.getProfileName()}"></h3>
+                <p th:text="${profile.getProfileDescription()}"></p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="cat-list-container" style="width: 70%">
+        <h2>This is a list of all our collective cats, please enjoy looking at them!</h2>
+
+        <div class="cat-card" th:each="cat : ${cats}">
+            <figure>
+                <img th:src="${cat.getCatImage()}" alt="Cat picture was here" style="width:200px ; height:200px">
+                <figcaption style="display: flex">
+                    <span>Age: <span th:text="${cat.getCatAge()}"></span> years. Gender: <span th:text="${cat.getCatGender()}"></span>.</span>
+                </figcaption>
+            </figure>
+
+            <div class="cat-info">
+                <h3 th:text="${cat.getCatName()}"></h3>
+                <p th:text="${cat.getCatDescription()}"></p>
+            </div>
+
+        </div>
+    </div>
+
+
+</main>
 </body>
 </html>

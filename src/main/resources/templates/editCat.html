@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Cat Page</title>
+    <link rel="stylesheet" href="/RegisterStyles.css">
+</head>
+
+<body>
+<!-- Header Navbar -->
+<nav>
+    <ul>
+        <li><a href="/frontPage">Home</a></li>
+        <li><a class="active" href="/myProfile">Profile</a></li>
+        <li style="float: right"><a href="/aboutUs">About</a></li>
+    </ul>
+</nav>
+
+<!-- Add Cat container -->
+<div class="login-container">
+    <h2>Edit Cat</h2>
+
+    <form action="#" th:action="@{/updateCat/{id}}" th:object="${cat}" method="post">
+        <div class="input-group">
+            <input type="hidden" th:field="*{catId}">
+
+            <label for="newCatName">Cat Name</label>
+            <input type="text" id="newCatName" name="catName" th:field="*{catName}" required/><br>
+
+            <label for="newCatDescription">Cat Description</label>
+            <input type="text" id="newCatDescription" name="catDescription" th:field="*{catDescription}" required/><br>
+
+            <label for="newCatGender">Cat Gender</label>
+            <input type="text" id="newCatGender" name="catGender" th:field="*{catGender}" required/><br>
+
+            <label for="newCatImage">Cat Image</label>
+            <input type="text" id="newCatImage" name="catImage" th:field="*{catImage}" required/><br>
+
+            <label for="newCatAge">Cat Age</label>
+            <input type="number" id="newCatAge" name="catAge" th:field="*{catAge}" required/><br>
+
+            <div class="button-group">
+                <p>Submit these changes to our database? <button type="submit">Submit Changes</button></p>
+            </div>
+
+        </div>
+    </form>
+
+</div>
+
+
+</body>
+</html>

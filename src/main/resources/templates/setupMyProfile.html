@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="/RegisterStyles.css">
+</head>
+<body>
+<div class="profile-container">
+    <div class="login-container">
+        <h2>Profile</h2>
+
+        <form th:action="@{/setupMyProfile}" th:object="${newProfile}" method="post">
+            <div class="profile-details">
+                <div class="input-group">
+                    <label for="profileName">Username</label>
+                    <input type="text" id="profileName" name="profileName" th:field="*{profileName}">
+                </div>
+                <div class="input-group">
+                    <label for="profileImage">imageUrl</label>
+                    <input type="text" id="profileImage" name="profileImage" th:field="*{profileImage}">
+                </div>
+                <div class="input-group">
+                    <label for="profileDescription">Description</label>
+                    <input type="text" id="profileDescription" name="profileDescription"
+                           th:field="*{profileDescription}">
+                </div>
+            </div>
+
+
+            <div class="button-group">
+                <button type="submit">Complete Profile Setup</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
