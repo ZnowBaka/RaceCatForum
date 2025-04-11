@@ -9,7 +9,7 @@ h1 {
 
 .navbar ul {
     list-style-type: none;
-    background-color: #333;
+    background-color: #444;
     padding: 0;
     margin: 0;
     overflow: hidden;
@@ -42,18 +42,18 @@ li:last-child {
 
 li a {
     display: block;
-    color: white;
+    color: #444444;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
 
 li a:hover:not(.active) {
-    background-color: #111;
+    background-color: #777;
 }
 
 .active {
-    background-color: #04AA6D;
+    background-color: #675;
 }
 
 th,

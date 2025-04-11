@@ -84,7 +84,6 @@ public class FrontPageController {
     @GetMapping("/loginPage")
     public String loginPage(Model model) {
         session.invalidate();
-        session.isNew();
         model.addAttribute("user", new User());
         return "/loginPage";
     }
@@ -187,7 +186,7 @@ public class FrontPageController {
     @GetMapping("/deleteProfile/{id}")
     public String deleteProfile(@ModelAttribute Profile profile, @PathVariable int id) {
         userService.deleteUserById(id);
-
+        session.invalidate();
         return "redirect:/registerNewProfile";
     }
 
